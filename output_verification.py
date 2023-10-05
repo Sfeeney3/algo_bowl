@@ -1,18 +1,18 @@
 import networkx as nx
 
-input_file = 'input.txt'
+# input_file = 'input.txt'
 
-# required vertices
-R = [1, 2, 3, 5]
-num_nodes = 5
-input_edges = ['1 2 2', '1 5 2', '1 4 1', '2 4 1', '3 4 1', '5 4 1', '2 3 2']
+# # required vertices
+# R = [1, 2, 3, 5]
+# num_nodes = 5
+# input_edges = ['1 2 2', '1 5 2', '1 4 1', '2 4 1', '3 4 1', '5 4 1', '2 3 2']
 
-# create graph from input file
-input_graph = nx.Graph()
+# # create graph from input file
+# input_graph = nx.Graph()
 
-for in_edge in input_edges:
-    in_edge = in_edge.split()
-    input_graph.add_edge(in_edge[0], in_edge[1], weight=int(in_edge[2]))
+# for in_edge in input_edges:
+#     in_edge = in_edge.split()
+#     input_graph.add_edge(in_edge[0], in_edge[1], weight=int(in_edge[2]))
 
 # read from submitted output file, change later to read from stdin
 filename = 'output.txt'
