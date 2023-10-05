@@ -1,4 +1,5 @@
 from scripts.input_script import InputScript as input_gen
+from scripts.input_script_bias import InputScript as input_gen_bias
 
 
 
@@ -7,6 +8,6 @@ from scripts.input_script import InputScript as input_gen
 
 if __name__ == "__main__":
 
-    node_params = [10,30]
-    input_script = input_gen(node_params)
-    #input_script.output_graph()
+    node_params = [400,450]
+    input_script = input_gen_bias(node_params)
+    input_script.output_graph()

@@ -34,12 +34,12 @@ class InputScript():
 
     def __init__(self,params:list) -> None:
         self.num_nodes = self.equilikely(min(params), max(params)) 
-        self.num_required = self.equilikely(int(self.num_nodes*.75), self.num_nodes)  # at least two required vertices
+        self.num_required = self.equilikely(int(self.num_nodes*.5), int(self.num_nodes*.75))  # at least two required vertices
         self.build_graph()
 
     def equilikely(self, a: int, b: int) -> int:
 
-        r = random.uniform(0.00001, 0.99999)
+        r = random.uniform(0.000001, 0.999999)
         return a + int((b - a + 1) * r)
 
     def build_graph(self) -> None:
@@ -47,15 +47,20 @@ class InputScript():
         # Create an empty undirected graph
         self.graph = nx.Graph()
         self.graph.add_nodes_from(range(1, self.num_nodes + 1))  # Nodes start from 1
-        
-        for i in range(1, self.num_nodes + 1):
-            for j in range(i + 1, self.num_nodes + 1): # Avoid adding self-loops and duplicate edges
-                weight = self.equilikely(1, 2)
-                self.graph.add_edge(i, j, weight=weight)
-        
         self.required_vertices = random.sample(range(1, self.num_nodes + 1), self.num_required)
 
-    def output_graph(self, filename='output_graph.txt') -> None:
+        for i in range(1, self.num_nodes + 1):
+            for j in range(i + 1, self.num_nodes + 1): # Avoid adding self-loops and duplicate edges
+                if i  in self.required_vertices:
+                    #print(i)
+                    weight = self.equilikely(8, 50)
+                else:
+                    weight = self.equilikely(1, 2)
+                self.graph.add_edge(i, j, weight=weight)
+        
+        #self.required_vertices = random.sample(range(1, self.num_nodes + 1), self.num_required)
+
+    def output_graph(self, filename='output_graph_bias.txt') -> None:
 
         with open(filename, 'w') as file:
             num_edges = self.graph.number_of_edges()
