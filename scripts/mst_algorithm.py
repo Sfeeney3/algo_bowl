@@ -36,7 +36,7 @@ class MST:
         self.get_all_shortest_paths(self.graph)
         self.create_shortest_paths_graph()
         self.mst(self.graph)
-        min_tree.get_mst_of_sp_graph()
+        self.get_mst_of_sp_graph()
         self.final_cost = self.get_graph_cost(self.final_edges)
         
         # generate output
@@ -146,57 +146,4 @@ class MST:
     
 #     def get_neighbor(self, tree):
 #         pass
-
-
-# In[156]:
-
-
-data = ''
-file = open(sys.argv[1])
-with open(file) as x:
-# with open(r'C:\\Users\\Coby\\Grad_School\\Algorithms\\algo_bowl\\algo_bowl\\inputs\\output_graph_big.txt', 'r') as x:
-    for line in x:
-        data = data + line
-data = data.strip().split('\n')
-min_tree = MST(data)
-# print(min_tree.dims, min_tree.r_vertices, min_tree.graph.edges)
-
-
-# In[157]:
-
-
-output = min_tree.find_minimum_subset_tree()
-print(output)
-
-
-# In[158]:
-
-
-min_tree.get_all_shortest_paths(min_tree.graph)
-min_tree.create_shortest_paths_graph()
-min_tree.mst(min_tree.graph)
-min_tree.get_mst_of_sp_graph()
-min_tree.get_graph_cost(min_tree.final_edges)
-print(min_tree.get_graph_cost(min_tree.final_edges), min_tree.get_graph_cost(min_tree.graph))
-final_tree = nx.Graph()
-final_tree.add_edges_from(min_tree.final_edges)
-min_tree.check_tree(final_tree)
-
-
-# In[138]:
-
-
-nx.draw(final_tree)
-
-
-# In[139]:
-
-
-print(final_tree.edges)
-
-
-# In[ ]:
-
-
-
 
