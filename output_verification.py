@@ -1,21 +1,32 @@
 import networkx as nx
-from mst_algorithm.ipynb import *
-# input_file = 'input.txt'
 
-# # required vertices
-# R = [1, 2, 3, 5]
-# num_nodes = 5
-# input_edges = ['1 2 2', '1 5 2', '1 4 1', '2 4 1', '3 4 1', '5 4 1', '2 3 2']
+input_file = './inputs/hard_test_1_2_75num_bias2.txt'
+input_file = open(input_file)
+file_lines = input_file.readlines()
 
-# # create graph from input file
-# input_graph = nx.Graph()
+num_nodes, num_in_edges, num_R = [int(i) for i in file_lines[0].split()]
+# print(num_nodes, num_edges, num_R)
 
-# for in_edge in input_edges:
-#     in_edge = in_edge.split()
-#     input_graph.add_edge(in_edge[0], in_edge[1], weight=int(in_edge[2]))
+# required vertices
+R = [int(v) for v in file_lines[1].split()]
+# print(R)
+
+input_edges = []
+for i in range(num_in_edges):
+    input_edges.append(file_lines[i+2].split())
+
+# print(input_edges)
+# create graph from input file
+input_graph = nx.Graph()
+
+for in_edge in input_edges:
+    input_graph.add_edge(in_edge[0], in_edge[1], weight=int(in_edge[2]))
+
+print(input_graph)
+
 
 # read from submitted output file, change later to read from stdin
-filename = 'output.txt'
+filename = 'output_test.txt'
 # filename = open(sys.argv[1])
 
 file = open(filename)
@@ -23,13 +34,14 @@ input_values = file.readlines()
 
 # cost of MST
 total_cost = int(input_values[0])
-
+# print(total_cost)
 # number of edges in the MST
 num_edges = int(input_values[1])
 
 # edges in the MST from the output file
 edges = input_values[2:]
-print(edges)
+# print(edges[0])
+# print(num_edges)
 # create a graph from the output file
 def create_MST(edges):
     if len(edges) != num_edges:
@@ -39,7 +51,7 @@ def create_MST(edges):
         G = nx.Graph()
         for i in range(num_edges):
             edge = edges[i]
-            edge = edge[0:3].split()
+            edge = edge.split()
             G.add_edge(edge[0], edge[1])
         return G
 
@@ -69,9 +81,9 @@ def check_cost(input_graph, total_cost):
     cost = 0
     for i in range(num_edges):
         edge = input_values[i + 2]
-        edge = edge[0:3].split()
+        edge = edge.split()
         cost += input_graph.get_edge_data(edge[0], edge[1])['weight']
-        print(type(cost))
+    # print(cost)
     if cost == total_cost:
         return True
     else:
