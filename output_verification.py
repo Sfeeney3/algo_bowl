@@ -29,7 +29,7 @@ num_edges = int(input_values[1])
 
 # edges in the MST from the output file
 edges = input_values[2:]
-
+print(edges)
 # create a graph from the output file
 def create_MST(edges):
     if len(edges) != num_edges:
