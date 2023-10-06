@@ -79,5 +79,8 @@ def check_cost(input_graph, total_cost):
         return False
 
 
-
-# check_cost(input_graph, total_cost)
+# CHECK OUTPUT
+G = create_MST(edges)
+check_tree(G)
+check_nodes(G)
+check_cost(input_graph, total_cost)
