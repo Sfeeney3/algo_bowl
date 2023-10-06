@@ -1,8 +1,3 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[1]:
-
 
 import networkx as nx
 import sys
@@ -10,7 +5,6 @@ import random
 import math
 
 
-# In[140]:
 
 
 class MST:
