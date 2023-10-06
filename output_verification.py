@@ -1,5 +1,5 @@
 import networkx as nx
-
+from mst_algorithm.ipynb import *
 # input_file = 'input.txt'
 
 # # required vertices
