@@ -65,7 +65,7 @@ def check_tree(G):
 
 
 # check if required nodes are present in the tree
-def check_nodes(G):
+def check_nodes(G, R):
     for i in range(len(R)):
         vertex = R[i]
         if G.has_node(str(vertex)):
@@ -77,10 +77,10 @@ def check_nodes(G):
     return True
 
 # check if the weights in the input graph add up to the total cost
-def check_cost(input_graph, total_cost):
+def check_cost(input_graph, edges, total_cost):
     cost = 0
     for i in range(num_edges):
-        edge = input_values[i + 2]
+        edge = edges[i]
         edge = edge.split()
         cost += input_graph.get_edge_data(edge[0], edge[1])['weight']
     # print(cost)
@@ -94,5 +94,5 @@ def check_cost(input_graph, total_cost):
 # CHECK OUTPUT
 G = create_MST(edges)
 check_tree(G)
-check_nodes(G)
-check_cost(input_graph, total_cost)
+check_nodes(G, R)
+check_cost(input_graph, edges, total_cost)
