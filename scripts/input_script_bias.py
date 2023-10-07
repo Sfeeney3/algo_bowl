@@ -33,9 +33,11 @@ class InputScript():
         """
 
     def __init__(self,params:list) -> None:
-        self.num_nodes = self.equilikely(min(params), max(params)) 
-        self.num_required = self.equilikely(int(self.num_nodes*.5), int(self.num_nodes*.75))  # at least two required vertices
+        self.num_nodes = 1000 #self.equilikely(min(params), max(params))
+        self.num_edges = 100000 
+        self.num_required = self.equilikely(int(self.num_nodes*.75), int(self.num_nodes*.85))  # at least two required vertices
         self.build_graph()
+        self.output_graph()
 
     def equilikely(self, a: int, b: int) -> int:
 
@@ -44,23 +46,39 @@ class InputScript():
 
     def build_graph(self) -> None:
 
-        # Create an empty undirected graph
-        self.graph = nx.Graph()
-        self.graph.add_nodes_from(range(1, self.num_nodes + 1))  # Nodes start from 1
+        self.graph = nx.random_regular_graph(200,self.num_nodes)
+        # Define a mapping from old node label to new node label
+        mapping = {node: node+1 for node in self.graph.nodes()}
+
+        # Use relabel_nodes to change the node numbers
+        self.graph = nx.relabel_nodes(self.graph, mapping)
         self.required_vertices = random.sample(range(1, self.num_nodes + 1), self.num_required)
 
-        for i in range(1, self.num_nodes + 1):
-            for j in range(i + 1, self.num_nodes + 1): # Avoid adding self-loops and duplicate edges
-                if i  in self.required_vertices:
-                    #print(i)
-                    weight = self.equilikely(8, 50)
-                else:
-                    weight = self.equilikely(1, 2)
-                self.graph.add_edge(i, j, weight=weight)
-        
-        #self.required_vertices = random.sample(range(1, self.num_nodes + 1), self.num_required)
 
-    def output_graph(self, filename='output_graph_bias.txt') -> None:
+
+
+        for (i, j) in self.graph.edges():
+            
+
+
+            if i in self.required_vertices and j in self.required_vertices:
+                if random.random() < 0.5:
+                    weight = self.equilikely(25, 50)
+                else:
+                    weight = self.equilikely(1, 25)
+            elif i in self.required_vertices or j in self.required_vertices:
+                weight = self.equilikely(5, 20)
+            else:
+                weight = self.equilikely(1, 50)
+
+
+            self.graph[i][j]['weight'] =  weight
+
+
+
+
+
+    def output_graph(self, filename='./inputs/output_graph_bias.txt') -> None:
 
         with open(filename, 'w') as file:
             num_edges = self.graph.number_of_edges()
