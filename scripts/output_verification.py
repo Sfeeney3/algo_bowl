@@ -1,7 +1,7 @@
 import networkx as nx
 
 # our input, will remain constant
-input_file = r'/home/saniya/PycharmProjects/algobowl/algo_bowl/older_inputs/hart_test_bias_num5075.txt'
+input_file = r'/home/saniya/PycharmProjects/algobowl/algo_bowl/inputs/keg_graph_bias_6367_1_5V_15_50R.txt'
 input_file = open(input_file)
 in_graph = input_file.readlines()
 
@@ -25,7 +25,7 @@ for in_edge in input_edges:
 print(input_graph)
 # print(nx.is_connected(input_graph))
 # output file submitted by other groups,  change to read from output folder
-filename = '/home/saniya/PycharmProjects/algobowl/algo_bowl/outputs/hart_test_bias_num5075_sa.txt'
+filename = '/home/saniya/PycharmProjects/algobowl/algo_bowl/outputs/keg_graph_bias_6367_1_5V_15_50R_sa.txt'
 # filename = open(sys.argv[1])
 
 file = open(filename)
