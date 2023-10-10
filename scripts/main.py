@@ -1,4 +1,4 @@
-from scripts.mst_algorithm import MST 
+from mst_algorithm import MST 
 import os
 import sys
 
@@ -7,9 +7,10 @@ import sys
 
 
 if __name__ == "__main__":
-    directory_in = './inputs/'
+    directory_in = './competition_inputs/inputs/'
     index = 0
     for filename in os.scandir(directory_in):
+        print(type(filename))
         if filename.is_file():
             data = ''
             with open(filename, 'r') as x:
@@ -21,6 +22,6 @@ if __name__ == "__main__":
 
         output = min_tree.find_minimum_subset_tree()
     #print(output)
-        with open('./outputs/output_'+str(index)+'.txt', 'w') as file:
+        with open('./outputs/output_'+filename.name+'.txt', 'w') as file:
             file.write(output)   
         index = index + 1 
