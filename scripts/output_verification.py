@@ -1,47 +1,45 @@
 import networkx as nx
 
-input_file = './inputs/hard_test_1_2_75num_bias2.txt'
+# our input, will remain constant
+input_file = r'/home/saniya/PycharmProjects/algobowl/algo_bowl/older_inputs/hart_test_bias_num5075.txt'
 input_file = open(input_file)
-file_lines = input_file.readlines()
+in_graph = input_file.readlines()
 
-num_nodes, num_in_edges, num_R = [int(i) for i in file_lines[0].split()]
-# print(num_nodes, num_edges, num_R)
+# number of nodes, number of edges, number of R vertices
+num_nodes, num_in_edges, num_R = [int(i) for i in in_graph[0].split()]
 
 # required vertices
-R = [int(v) for v in file_lines[1].split()]
+R = [int(v) for v in in_graph[1].split()]
 # print(R)
 
+# edges in the input graph
 input_edges = []
 for i in range(num_in_edges):
-    input_edges.append(file_lines[i+2].split())
+    input_edges.append(in_graph[i+2].split())
 
-# print(input_edges)
 # create graph from input file
 input_graph = nx.Graph()
-
 for in_edge in input_edges:
     input_graph.add_edge(in_edge[0], in_edge[1], weight=int(in_edge[2]))
 
 print(input_graph)
-
-
-# read from submitted output file, change later to read from stdin
-filename = 'output_test.txt'
+# print(nx.is_connected(input_graph))
+# output file submitted by other groups,  change to read from output folder
+filename = '/home/saniya/PycharmProjects/algobowl/algo_bowl/outputs/hart_test_bias_num5075_sa.txt'
 # filename = open(sys.argv[1])
 
 file = open(filename)
-input_values = file.readlines()
+file_lines = file.readlines()
 
 # cost of MST
-total_cost = int(input_values[0])
-# print(total_cost)
+total_cost = int(file_lines[0])
+
 # number of edges in the MST
-num_edges = int(input_values[1])
+num_edges = int(file_lines[1])
 
 # edges in the MST from the output file
-edges = input_values[2:]
-# print(edges[0])
-# print(num_edges)
+edges = file_lines[2:]
+# print(edges)
 # create a graph from the output file
 def create_MST(edges):
     if len(edges) != num_edges:
@@ -52,24 +50,25 @@ def create_MST(edges):
         for i in range(num_edges):
             edge = edges[i]
             edge = edge.split()
+            # print(edge)
             G.add_edge(edge[0], edge[1])
+        # print(G)
         return G
 
 # check if the graph is a tree
 def check_tree(G):
     if nx.is_tree(G):
-        return True
+        pass
     else:
         print("Invalid output: Output is not a tree")
-        return False
+    return
 
 
-# check if required nodes are present in the tree
+# check if the required nodes are present in the tree
 def check_nodes(G, R):
     for i in range(len(R)):
         vertex = R[i]
         if G.has_node(str(vertex)):
-            # print(vertex)
             pass
         else:
             print("Invalid output: All required nodes not present")
@@ -83,7 +82,6 @@ def check_cost(input_graph, edges, total_cost):
         edge = edges[i]
         edge = edge.split()
         cost += input_graph.get_edge_data(edge[0], edge[1])['weight']
-    # print(cost)
     if cost == total_cost:
         return True
     else:
